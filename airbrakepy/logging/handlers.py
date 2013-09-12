@@ -3,6 +3,7 @@ import logging
 import traceback
 import multiprocessing
 import urllib2
+import reuests
 import sys
 import xmlbuilder
 from airbrakepy import __version__ ,__source_url__, __app_name__
@@ -38,10 +39,9 @@ class AirbrakeSender(multiprocessing.Process):
                 self._handle_error()
 
     def _sendHttpRequest(self, headers, message):
-        request = urllib2.Request(self.service_url, message, headers)
         try:
-            response = urllib2.urlopen(request, timeout=self.timeout_in_seconds)
-            status = response.getcode()
+            response = requests.post(self.service_url, data=message, headers=headers, timeout=self.timeout_in_seconds)
+            status = response.status_code
         except urllib2.HTTPError as e:
             status = e.code
         return status
