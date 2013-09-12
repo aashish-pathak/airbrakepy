@@ -3,7 +3,7 @@ import logging
 import traceback
 import multiprocessing
 import urllib2
-import reuests
+import requests
 import sys
 import xmlbuilder
 from airbrakepy import __version__ ,__source_url__, __app_name__
