@@ -43,7 +43,7 @@ class AirbrakeSender(multiprocessing.Process):
             status = response.status_code
         except requests.exceptions.HTTPError as e:
             status = e.code
-        except requests.exceptions.Timeout as e:
+        except requests.exceptions.Timeout:
             # Try once again.
             response = requests.post(self.service_url, data=message, headers=headers, timeout=self.timeout_in_seconds)
             status = response.status_code            
